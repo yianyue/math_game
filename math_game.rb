@@ -65,6 +65,8 @@ def winner
   winner[:id]
 end
 
+# Main program begins
+
 begin
  
   loop do
