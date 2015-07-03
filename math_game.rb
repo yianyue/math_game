@@ -17,8 +17,8 @@
 # if the random numbers are generated inside the ask function, 
 # the answer will either need to be returned, or passed to the verify function
 
-def initialize(players)
-  players.each{|player| 
+def restart
+  @players.each{|player| 
     player[:life] = 3
     player[:score] = 0
   }
@@ -50,8 +50,10 @@ def add_score(player)
   player[:score] += 1
 end
 
-def display_player_info(player)
-  puts "Player #{player[:id]}: Life #{player[:life]} Score #{player[:score]}"
+def display_player_info()
+  @players.each{|player|
+    puts "Player #{player[:id]}: Life #{player[:life]} Score #{player[:score]}"
+  }
 end
 
 def dead?(player)
@@ -73,18 +75,17 @@ begin
         add_score(player)
       else
         minus_life(player)
+        display_player_info
         break if dead?(player)
       end
-      display_player_info(player)
     }
   end
 
   puts "GAME OVER"
-  @players.each{|p| display_player_info(p)}
   puts "The winner is: Player #{winner}"
 
   puts "Play again?(y/n)"
   again = gets.chomp == "y"
-  initialize(@players)
+  restart
 
 end while again
