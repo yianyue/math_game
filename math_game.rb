@@ -47,6 +47,13 @@ def display_player_info(player)
   puts "Player #{player[:id]}: Life #{player[:life]} Score #{player[:score]}"
 end
 
-# ask(@players[0], num1, num2)
-# player_ans = get_answer()
-
+@players.each { |player|
+  ans = ask(player)
+  player_ans = get_answer()
+  if verify(ans, player_ans)
+    add_score(player)
+  else
+    minus_life(player)
+  end
+  display_player_info(player)
+}
