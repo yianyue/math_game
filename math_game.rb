@@ -10,7 +10,7 @@
     id: 2,
     life: 3,
     score: 0
-}
+  }
 ]
 
 # is this really a good way to structure the program?
@@ -31,7 +31,7 @@ end
 
 # they are all 1 line functions, used once in the loop...
 # are they necessary?
-def verify(ans, player_ans)
+def right?(ans, player_ans)
   ans == player_ans
 end
 
@@ -47,13 +47,29 @@ def display_player_info(player)
   puts "Player #{player[:id]}: Life #{player[:life]} Score #{player[:score]}"
 end
 
-@players.each { |player|
-  ans = ask(player)
-  player_ans = get_answer()
-  if verify(ans, player_ans)
-    add_score(player)
-  else
-    minus_life(player)
-  end
-  display_player_info(player)
-}
+def dead?(player)
+  player[:life] == 0
+end
+
+def winner
+  winner = @players.max_by{|p| p[:score]}
+  winner[:id]
+end
+ 
+loop do
+  break unless @players.each { |player|
+    ans = ask(player)
+    player_ans = get_answer()
+    if right?(ans, player_ans)
+      add_score(player)
+    else
+      minus_life(player)
+      break if dead?(player)
+    end
+    display_player_info(player)
+  }
+end
+
+puts "GAME OVER"
+@players.each{|p| display_player_info(p)}
+puts "The winner is: Player #{winner}"
