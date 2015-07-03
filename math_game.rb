@@ -29,8 +29,18 @@ def get_answer()
   input = gets.chomp.to_f
 end
 
+# they are all 1 line functions, used once in the loop...
+# are they necessary?
 def verify(ans, player_ans)
   ans == player_ans
+end
+
+def minus_life(player)
+  player[:life] -= 1
+end
+
+def add_score(player)
+  player[:score] += 1
 end
 
 def display_player_info(player)
