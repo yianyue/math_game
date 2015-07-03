@@ -17,6 +17,13 @@
 # if the random numbers are generated inside the ask function, 
 # the answer will either need to be returned, or passed to the verify function
 
+def initialize(players)
+  players.each{|player| 
+    player[:life] = 3
+    player[:score] = 0
+  }
+end
+
 def ask(player)
   num1 = rand(1..20)
   num2 = rand(1..20)
@@ -55,21 +62,29 @@ def winner
   winner = @players.max_by{|p| p[:score]}
   winner[:id]
 end
- 
-loop do
-  break unless @players.each { |player|
-    ans = ask(player)
-    player_ans = get_answer()
-    if right?(ans, player_ans)
-      add_score(player)
-    else
-      minus_life(player)
-      break if dead?(player)
-    end
-    display_player_info(player)
-  }
-end
 
-puts "GAME OVER"
-@players.each{|p| display_player_info(p)}
-puts "The winner is: Player #{winner}"
+begin
+ 
+  loop do
+    break unless @players.each { |player|
+      ans = ask(player)
+      player_ans = get_answer()
+      if right?(ans, player_ans)
+        add_score(player)
+      else
+        minus_life(player)
+        break if dead?(player)
+      end
+      display_player_info(player)
+    }
+  end
+
+  puts "GAME OVER"
+  @players.each{|p| display_player_info(p)}
+  puts "The winner is: Player #{winner}"
+
+  puts "Play again?(y/n)"
+  again = gets.chomp == "y"
+  initialize(@players)
+
+end while again
