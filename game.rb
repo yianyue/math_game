@@ -19,6 +19,8 @@ class Game
     game_over
   end
 
+  private
+  
   def game_over
     puts "GAME OVER"
     @players.each{|p| p.info}

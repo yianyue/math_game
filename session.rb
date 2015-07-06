@@ -10,11 +10,13 @@ class Session
 
   def run
     get_players
+
     begin
       Game.new(@players).play
       puts "Play again?(y/n)"
       again = gets.chomp == "y"
     end while again
+    
     end_session
   end
 

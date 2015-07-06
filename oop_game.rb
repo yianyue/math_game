@@ -4,4 +4,4 @@ require 'byebug'
 
 # Main program begins
 
-Session.new().run
+Session.new.run
