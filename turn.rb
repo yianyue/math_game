@@ -10,7 +10,10 @@ class Turn
 
   def take
     ask
-    get_guess
+
+    @player_ans = gets.chomp.to_f
+    # string.to_f returns 0.0
+    raise InvalidGuessError if @player_ans == 0
 
     if @ans == @player_ans
       @player.add_score
@@ -18,9 +21,9 @@ class Turn
       @player.minus_life
       @player.info  
     end
-    
-  rescue InvalidGuessError
-    puts "Invalid Guess. Please enter an integer greater than 0."
+    #TODO: better way to use the custom InvalidGuessError class?
+  rescue InvalidGuessError => error
+    puts error.message
     take
   end
   
@@ -31,10 +34,5 @@ class Turn
     @ans = num1 + num2
   end
 
-  def get_guess
-    @player_ans = gets.chomp.to_f
-    # string.to_f returns 0.0
-    raise InvalidGuessError, "custom error" if @player_ans == 0
-  end
 
 end
