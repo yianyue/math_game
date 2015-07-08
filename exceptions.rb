@@ -7,3 +7,11 @@ class InvalidGuessError < StandardError
   end
 
 end
+
+class InvalidNameError < StandardError
+  
+  def message
+    "Invalid name."
+  end
+
+end

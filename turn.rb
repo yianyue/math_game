@@ -21,6 +21,7 @@ class Turn
       @player.minus_life
       @player.info  
     end
+    
     #TODO: better way to use the custom InvalidGuessError class?
   rescue InvalidGuessError => error
     puts error.message

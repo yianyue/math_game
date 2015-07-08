@@ -1,6 +1,7 @@
 #instance of a session class incorporates multiple games
 require './game'
 require './player'
+require './exceptions'
 
 class Session
   NUMPLAYERS = 2
@@ -25,8 +26,16 @@ class Session
   def get_players
     # 3 dots for exclusive range
     (0...NUMPLAYERS).each do |i|
-      print "Enter Player #{i+1} name: "
-      @players[i] = Player.new(gets.chomp)
+      begin
+        print "Enter Player #{i+1} name: "
+        name = gets.chomp
+        raise InvalidNameError if name =~ /^\s*$/
+        @players[i] = Player.new(name)
+      rescue InvalidNameError
+        puts "invalid name"
+        retry
+      end
+      
     end
   end  
 

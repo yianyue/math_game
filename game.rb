@@ -1,6 +1,5 @@
 require './player'
 require './turn'
-require "./exceptions"
 
 class Game
   def initialize(players)
